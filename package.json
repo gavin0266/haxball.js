@@ -1,6 +1,6 @@
 {
-  "name": "haxball.js-custom",
-  "version": "3.0.0",
+  "name": "haxball.js",
+  "version": "3.0.1-apl.1",
   "description": "A powerful library for interacting with the Haxball Headless API",
   "main": "src/index.js",
   "types": "types/index.d.ts",
@@ -8,6 +8,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "test:testing": "node --test test-node/testing-api.test.js",
     "test": "mocha --recursive --exit",
     "build": "node scripts/nodeify.js"
   },

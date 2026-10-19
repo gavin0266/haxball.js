@@ -7,6 +7,10 @@ const { HttpsProxyAgent } = require('https-proxy-agent');
 const { Crypto } = require('@peculiar/webcrypto');
 const { performance } = require('perf_hooks');
 const crypto = new Crypto();
+const { createTestingApi } = require('./testing');
+class InvalidRoomTokenError extends Error {
+  constructor() { super('Invalid room token'); this.name = 'InvalidRoomTokenError'; }
+}
 
 let {
   RTCPeerConnection,
@@ -15,6 +19,7 @@ let {
 } = require('node-datachannel/polyfill');
 
 var promiseResolve;
+const headlessReady = new Promise((resolve) => { promiseResolve = resolve; });
 var proxyAgent;
 var debug = false;
 
@@ -24,9 +29,7 @@ const HBLoaded = (config) => {
     RTCIceCandidate = config.webrtc.RTCIceCandidate;
     RTCSessionDescription = config.webrtc.RTCSessionDescription;
   }
-  return new Promise(function (resolve, reject) {
-    promiseResolve = resolve;
-  });
+  return headlessReady.then((init) => (options) => init({ ...(config?.proxy ? { proxy: config.proxy } : {}), ...options }));
 };
 
 const onHBLoaded = function (cb) {
@@ -1511,7 +1514,7 @@ const onHBLoaded = function (cb) {
               c(e);
               break;
             case 'recaptcha':
-              console.log(new Error('Invalid Token Provided!'));
+              process.nextTick(() => { throw new InvalidRoomTokenError(); });
           }
         })
         .catch(function () {
@@ -3189,6 +3192,9 @@ const onHBLoaded = function (cb) {
         : null;
       debug = k('debug', null) == true;
       let l = !k('public', !1);
+      const testMode = k('testMode', false) === true;
+      if (testMode && !l) throw new Error('Test APIs require a private room');
+      let testing = null;
       var p = g('roomName', 'Headless Room');
       let t = g('playerName', 'Host'),
         x = k('noPlayer', !1),
@@ -3395,6 +3401,10 @@ const onHBLoaded = function (cb) {
           },
           // Custom API
           createPlayer: function (id, name, country, extraData) {
+            if (!testMode) throw new Error('Enable testMode on a private room first');
+            if (!Number.isInteger(id) || id < D.wh || id > 65535 || y.R(id)) throw new Error('Invalid or reused player id');
+            if (typeof name !== 'string' || !name.length || name.length > 25) throw new Error('Invalid player name');
+            D.wh = id + 1;
             const action = Z.V(id, name, country, extraData);
             action.B = 0;
             c(action);
@@ -3415,6 +3425,29 @@ const onHBLoaded = function (cb) {
             all: 63,
           },
         };
+      if (testMode) {
+        const playerAction = (id, action) => nb.then(() => {
+          D.Ba();
+          action.B = id; action.eb = D.da; action.fb = D.Ra;
+          if (!action.dg(y)) return false;
+          D.Bf(action); D.$d();
+          if (D.Ga.length) D.hd(D.Od(action), 1);
+          return true;
+        });
+        testing = createTestingApi({
+          allocateId: () => {
+            if (D.wh > 65535) throw new Error('Test player ids exhausted');
+            return D.wh++;
+          },
+          exists: id => y.R(id) !== null,
+          add: (id, name, country) => c(Z.V(id, name, country, null)),
+          remove: id => c(S.V(id, null, false)),
+          input: (id, input) => { const action = new Ca(); action.input = input; return playerAction(id, action); },
+          chat: (id, message) => { const action = new la(); action.Pa = message; return playerAction(id, action); },
+          pause: (id, value) => { const action = new oa(); action.wc = value; return playerAction(id, action); },
+        });
+        Object.defineProperty(J, 'testing', { value: testing, enumerable: true });
+      }
       D.ic = function (h, n) {
         Ga.jh().then(function (v) {
           F.bi(v, h, n);
@@ -3455,6 +3488,8 @@ const onHBLoaded = function (cb) {
           v = null,
           G = null;
         null != n && ((v = n.Ig), (G = n.jc.hb));
+        const identity = testing?.identity(h.ma);
+        if (identity) { v = identity.auth; G = identity.conn; }
         n = v;
         v = J.onPlayerJoin;
         null != v && ((h = f(h)), (h.auth = n), (h.conn = G), v(h));
@@ -3519,6 +3554,7 @@ const onHBLoaded = function (cb) {
         b();
         var H = J.onPlayerLeave;
         null != H && H(f(h));
+        testing?.forget(h.ma);
         null != n &&
           ((H = null),
           null != G && (H = G.oa),
@@ -5687,3 +5723,5 @@ const onHBLoaded = function (cb) {
     : this
 );
 module.exports = HBLoaded;
+module.exports.InvalidRoomTokenError = InvalidRoomTokenError;
+module.exports.testingApiVersion = 1;
