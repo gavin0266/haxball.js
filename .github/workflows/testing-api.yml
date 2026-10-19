@@ -1,0 +1,30 @@
+name: Testing API contracts
+
+on:
+  pull_request:
+    branches: [main, create-player]
+  push:
+    branches: [create-player, 'codex/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - name: Check engine syntax
+        run: node --check src/index.js
+      - name: Verify participant API contracts without network or tokens
+        run: npm run test:testing

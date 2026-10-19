@@ -10,6 +10,37 @@
 
 ### 🔖 Table Of Contents
 
+### APL fork: private-room engine testing
+
+This fork retains the `create-player` engine snapshot and adds an opt-in testing
+API. Pass `testMode: true` to `HBInit` in a private room (`public: false`). Public
+rooms reject test mode; ordinary rooms expose no `room.testing` API. The existing
+`createPlayer` extension also requires test mode and rejects reused IDs.
+
+```js
+const room = HBInit({ public: false, noPlayer: true, testMode: true, token });
+const id = room.testing.addPlayer({ name: 'Red', auth: 'test:red' });
+// Wait for onPlayerJoin before using the id; host actions are asynchronous.
+room.setPlayerTeam(id, 1);
+room.setPlayerAdmin(id, true);
+await room.testing.sendChat(id, '!league');
+await room.testing.setPlayerInput(id, 8); // right; kick = 16
+room.testing.removePlayer(id); // ordinary leave action, not a kick callback
+```
+
+Participants share the engine's player-ID counter and use the normal join, leave,
+input, chat and pause actions, physics and replay recorder. `pauseGame(id, value)`
+acts as that player and keeps the engine's admin checks. Supplied auth is a test
+identity delivered only by the join event; it is not cryptographic authentication.
+These participants do not establish external WebRTC connections and cannot prove
+client network behavior. The exported `testingApiVersion` is `1`.
+
+Run `npm run test:testing` for offline API validation. APL Football's live suite
+opens a real room with CapSolver and exercises these APIs against live physics.
+The pinned `src/index.js` engine adapter is maintained separately from the upstream
+candidate generated into `src/build.js`; regenerating a candidate does not replace
+the tested adapter. Port and validate the test hooks when updating the engine.
+
 - 🤔 [How To Use](#how-to-use)
 - 🚀 [Technologies](#technologies)
 - 🌱 [Minimal Requirements](#minimal-requirements)
