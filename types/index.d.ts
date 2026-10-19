@@ -2,6 +2,7 @@ import 'haxball-headless-browser';
 
 interface HaxballJSConfig {
   webrtc?: any;
+  proxy?: string;
 }
 
 interface RoomConfigObjectM extends RoomConfigObject {
@@ -22,6 +23,7 @@ interface TestingApi {
 }
 interface TestableRoom extends RoomObject { readonly testing?: TestingApi; }
 export class InvalidRoomTokenError extends Error {}
+export const testingApiVersion: number;
 export type Headless = (roomConfig: RoomConfigObjectM) => TestableRoom;
 
 declare function HaxballJS(config?: HaxballJSConfig): Promise<Headless>;
