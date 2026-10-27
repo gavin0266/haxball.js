@@ -140,3 +140,39 @@ evidence-only commits.
 ![Actual referee live viewing off](live-viewing/10-referee-live-off.png)
 
 ![Hosting options UI with fixture account and API data](live-viewing/11-hosting-options-fixture.png)
+
+## Test room access follow-up
+
+At 2026-10-27T15:12:39.281Z, the existing development test room was corrected without
+reopening it. The ad hoc test driver had passed an empty password string to the
+native API, which still marked the room locked; its generated invite also carried
+the password-prompt flag. The native lock was explicitly cleared with
+`setPassword(null)`, and the saved/publication invite flag was removed. A real
+native WebRTC client then joined successfully **without any password prompt**,
+received the APL welcome and displayed the native clock/ping HUD. The earlier
+statement that a blank prompt could simply be submitted was not verified and
+was incorrect.
+
+The initial test driver only started live-segment publishing, so it was absent
+from the website's separate regular room list. Its development API client now
+sends that explicitly requested room-list heartbeat with public website metadata,
+while the native room configuration remains hidden. This is a scoped test-host
+setup correction, not a new general hosting visibility setting. The corrected
+driver uses the same explicit settings for future runs. The actual hosted
+development homepage rendered the room card with the corrected join target;
+a second API observation verified a fresh heartbeat. No frontend/API response
+interception was used. Live viewing stays enabled. No production change, provider
+server creation, new solve or application source deployment was needed.
+
+The running test process was updated through its own temporary loopback debugger,
+then resumed and the debugger closed. An initial breakpoint lookup and a later
+access to an uncaptured local binding failed; the scoped room-only operation
+passed. The failed native join attempt still saw the stale prompt flag; the
+corrected URL passed. The local referee panel join target was also corrected; its protected state
+was verified to contain the password-free invite. Private join URLs and panel credentials remain
+excluded from committed proof. See [room access assertions](live-viewing/room-access-followup.json)
+and [new native client assertions](live-viewing/native-join-no-password.json).
+
+![Actual regular room card on the development homepage](live-viewing/12-regular-dev-room-list.png)
+
+![Actual native client joined without a password prompt](live-viewing/13-native-join-no-password.png)

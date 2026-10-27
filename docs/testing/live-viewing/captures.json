@@ -53,5 +53,15 @@
     "file": "11-hosting-options-fixture.png",
     "capturedAt": "2026-10-27T14:47:24.739Z",
     "sha256": "9214adbde9bb4a77ff23cfb774d9804d25ecb1502647ccdd0599c8291c57566d"
+  },
+  {
+    "file": "12-regular-dev-room-list.png",
+    "capturedAt": "2026-10-27T15:12:23.187Z",
+    "sha256": "6985278568e48ff037125a89fbc83836c418941d5b6233bd806e55ca6c9c9ea2"
+  },
+  {
+    "file": "13-native-join-no-password.png",
+    "capturedAt": "2026-10-27T15:10:05.605Z",
+    "sha256": "770faf3cf0a0eef9cb3872a2b04bcbc4cddb770198102c979ba91a1ce6356c5e"
   }
 ]
