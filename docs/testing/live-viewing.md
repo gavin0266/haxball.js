@@ -8,7 +8,7 @@ Native fork: **a13c08797ce1e84dc05de3db2b708791100e661b**. APL room/publisher: *
 
 The website ran at localhost port 3107 with the actual production live-router module hosted in an isolated Express harness on loopback port 4107. This harness contains the new relay, without the unrelated database-backed routes. These checks did not replace API responses or intercept live requests. The source was a **real, unlisted, password-protected native Haxball room**, opened through the existing Capsolver integration at 2026-10-27T12:50:36.550Z. Its two clearly labelled players were the fork's engine-driven test participants, rather than two human or WebRTC player clients. Separate native peer verification is described below. No production match records, account credentials or database data were used.
 
-This is verified **local development** evidence. Hosted development deployment and production activation have not occurred. A development-only checked deployment was prepared, but automatic approval review required explicit release authorization; it remains pending. The read-only baseline confirmed development c62dd0d and production 1.1.1 (40933f3) healthy. No deployment, environment change, merge or production activation was performed.
+This initial section records **local development** before the hosted rollout. Its baseline confirmed development c62dd0d and production 1.1.1 (40933f3) healthy. The later user-authorized hosted development rollout and independent hosting/referee controls are recorded below; production activation remains separate.
 
 ## Actual live behavior
 
@@ -38,9 +38,9 @@ Initial successful CI runs are recorded in [CI metadata](live-viewing/initial-ci
 
 ## Operations and review
 
-Both flags default off. Private broadcasting requires a second explicit unlisted opt-in, and unlisted feeds stay out of discovery. Chat, announcements and moderator removal reasons are omitted at capture. The relay uses authenticated writes, read-only website proxies, bounded memory, sequence/frame validation, inflate limits and stale-feed expiry. Live-route access logging is suppressed; viewing URLs, native invites, passwords, tokens, auth/conn/IP and publishing keys are excluded from committed proof.
+Both flags default off. Private broadcasting requires an explicit listed or unlisted opt-in, and unlisted feeds stay out of discovery. Chat, announcements and moderator removal reasons are omitted at capture. The relay uses authenticated writes, read-only website proxies, bounded memory, sequence/frame validation, inflate limits and stale-feed expiry. Live-route access logging is suppressed; viewing URLs, native invites, passwords, tokens, auth/conn/IP and publishing keys are excluded from committed proof.
 
-Deployment order is compatible website/backend, then the pinned APL package, then explicit development flags. Production is a separate authorization and release. No schema migration is introduced. The relay is process-local and requires one backend instance or sticky routing; it provides a short playback buffer rather than persistent DVR. Callback network work is queued by APL rather than blocking the native dispatcher.
+Deployment order is compatible website/backend, then the pinned APL package, then explicit development flags. Production is a separate authorization and release. The original streaming runtime needs no schema change; the hosting controls below add an additive default-off reservation column. The relay is process-local and requires one backend instance or sticky routing; it provides a short playback buffer rather than persistent DVR. Callback network work is queued by APL rather than blocking the native dispatcher.
 
 ## Actual captures
 
@@ -53,3 +53,90 @@ Deployment order is compatible website/backend, then the pinned APL package, the
 ![Actual unavailable-broadcast state](live-viewing/04-unavailable.png)
 
 ![Actual unsupported Web Audio state in Windows WebKit](live-viewing/05-webkit-unsupported.png)
+
+## Hosted development rollout and controls (28 October 2026, Sydney)
+
+Website/backend **3132ec798e43855d19917f61a58ff5fd31ac7244** and the separate
+development Fleet/room package **3339c96d012a9bdb16d0fabb8a6bb088afbbfeda** are
+deployed. The native engine remains pinned to **a13c08797ce1e84dc05de3db2b708791100e661b**.
+The user explicitly authorized this development rollout. No PR was merged and
+production was not released. Production container identities, configuration
+fingerprints, release revision and the production Fleet container were verified
+unchanged. Previous development images/container and private state/config backup
+are retained. The checked receiver retained a nonempty development DB backup.
+
+The additive `20261028010000_fleet_live_viewing` migration adds a default-false
+boolean to reservations. CI ran both fresh migrations/schema drift and a guarded
+PostgreSQL preservation case against a temporary legacy reservation table; old
+room name, listing and encrypted-password sentinel survived and viewing defaulted
+off. The running development database confirms the column and migration.
+
+The actual Capsolver-opened room is **hidden from Haxball's room list** and
+**listed on our development /live page**. The native room host and referee panel
+run on the user's Windows computer, publishing to the deployed HTTPS dev API.
+There is no production fallback. Room statistics and archive recording are off;
+the two labelled participants are engine-driven test players. This rollout did
+not commission another provider VPS or exercise a paid website reservation.
+
+At **2026-10-27T14:57:31.130Z**, actual referee controls removed the feed from discovery
+when turned off and created a new broadcast when enabled. Hosted native playback
+advanced **528 frames** across multiple segments; the native
+clock advanced from 0.167 to 9.200 seconds.
+Local pause/Return to live and 390px page bounds passed with zero page errors.
+The native renderer, real room bytes and hosted API were used without response
+interception. Screenshots 06–10 show this actual run. The original real native
+WebRTC spectator proof above remains separate; no new peer join is claimed here.
+
+Website hosting and Fleet offer **Show on HaxballAsia live viewing**, default off,
+independently of Haxball listing. The referee panel offers the initial option and
+a live on/off control. Changes last for the current room session; enabling again
+rotates the broadcast link. Turning off stops new capture and removes discovery;
+frames already delivered cannot be recalled. The actual development Fleet catalog
+was healthy through both its loopback and authenticated website service path.
+Its actual release packaging includes the pinned engine and controls, excludes
+credentials/runtime data, and was checked without publishing to the bucket.
+
+Added checks: four publisher/settings cases, two Fleet bridge cases, two backend
+booking/forwarding cases, one PostgreSQL migration preservation case, an actual
+referee UI regression, and hosting-form submissions at desktop/mobile widths.
+Full APL npm test passed (213 Node cases, 66 stadium and 631 harness checks plus
+the included standalone checks). Local backend: 635 passed, 4 skips after adding
+the gated migration case; the database cases run explicitly in CI. Frontend: 98
+passed and TypeScript passed. Local hosting browser fixtures: 2 passed; referee
+UI fixture: 1 passed. Screenshot 11 is an actual local UI capture with fixture
+account/catalog/API responses; it is not a paid hosting/provisioning result.
+The fixture's checkbox request body is verified by the committed browser test.
+The deployment browser run reported **107 passed, 1 flaky (passed on its configured
+retry), 4 existing platform skips**. The flaky existing Safari collection case
+failed during browser-context cleanup with runner `ENOSPC`; its retry passed.
+This was CI runner storage, not the development host. The separate PR source CI
+also completed successfully. The four native live-view cases passed in this run.
+
+The initial Fleet health probe omitted its canonical Host header and triggered
+automatic restoration of the prior dev container. A network-isolated diagnostic
+confirmed startup; the corrected probe and external service path then passed.
+The first hosting screenshot attempt used an ambiguous form selector; the
+corrected room-form capture passed. Initial sandbox test attempts failed on
+temporary-file rename/local socket restrictions; the unrestricted reruns passed.
+These attempted/failed checks are not counted as successes.
+
+[Successful checked development deployment](https://github.com/KnitidCeladon23/next_haxballasia/actions/runs/40523662740) and
+[APL source CI](https://github.com/gavin0266/apl-football/actions/runs/40523537877).
+The [rollout record](live-viewing/development-rollout.json),
+[actual hosted UI assertions](live-viewing/hosted-development.json) and
+[package check](live-viewing/development-package.json) provide sanitized evidence.
+Physical iPhone Safari, sustained viewer load and a distributed relay remain
+outside the tested scope. Final PR descriptions distinguish source CI from later
+evidence-only commits.
+
+![Actual hosted development live directory](live-viewing/06-hosted-dev-directory.png)
+
+![Actual hosted development native playback](live-viewing/07-hosted-dev-desktop.png)
+
+![Actual hosted native playback at a mobile width](live-viewing/08-hosted-dev-mobile.png)
+
+![Actual referee live viewing on](live-viewing/09-referee-live-on.png)
+
+![Actual referee live viewing off](live-viewing/10-referee-live-off.png)
+
+![Hosting options UI with fixture account and API data](live-viewing/11-hosting-options-fixture.png)
