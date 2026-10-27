@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-10-27T13:33:57.537Z",
+  "siteRevision": "4012949c16a0fa46442f0d01b2b952c44e4e4c3d",
+  "environment": "Local website and actual live relay; real private native Haxball room opened with Capsolver",
+  "apiInterception": false,
+  "engineDrivenParticipants": true,
+  "realPeerClientTestedInThisRun": false,
+  "before": {
+    "time": 2570.766666671789,
+    "x": -473.77705067074453
+  },
+  "after": {
+    "time": 2579.850000005238,
+    "x": -418.10491004529996,
+    "players": [
+      {
+        "name": "Live Test Red",
+        "team": 1
+      },
+      {
+        "name": "Live Test Blue",
+        "team": 2
+      }
+    ]
+  },
+  "framesAdvanced": 560,
+  "multipleSegments": true,
+  "localPauseAndLiveEdge": true,
+  "mobileWidth": 390,
+  "pageErrors": []
+}

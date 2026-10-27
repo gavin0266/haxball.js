@@ -8,7 +8,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "test:testing": "node --test test-node/testing-api.test.js",
+    "test:testing": "node --test test-node/testing-api.test.js test-node/live-replay.test.js",
     "test": "mocha --recursive --exit",
     "build": "node scripts/nodeify.js"
   },

@@ -21,7 +21,13 @@ interface TestingApi {
   sendChat(id: number, message: string): Promise<boolean>;
   pauseGame(id: number, value: boolean): Promise<boolean>;
 }
-interface TestableRoom extends RoomObject { readonly testing?: TestingApi; }
+interface LiveReplaySegment { readonly from: number; readonly to: number; readonly bytes: Uint8Array; }
+interface LiveReplayApi {
+  readonly version: 1;
+  /** Native version 3 segments. Chat and announcements are omitted. */
+  subscribe(callback: (segment: LiveReplaySegment) => void, options?: { segmentFrames?: number }): () => void;
+}
+interface TestableRoom extends RoomObject { readonly testing?: TestingApi; readonly liveReplay: LiveReplayApi; }
 export class InvalidRoomTokenError extends Error {}
 export const testingApiVersion: number;
 export type Headless = (roomConfig: RoomConfigObjectM) => TestableRoom;

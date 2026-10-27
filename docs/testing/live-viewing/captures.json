@@ -1,0 +1,67 @@
+[
+  {
+    "file": "01-native-live-desktop.png",
+    "capturedAt": "2026-10-27T13:33:56.915Z",
+    "sha256": "a540b288b32d0c9e03bd193024c708ac0360a663bc556503ffe02b0eaf7e410f"
+  },
+  {
+    "file": "02-native-live-mobile.png",
+    "capturedAt": "2026-10-27T13:33:57.537Z",
+    "sha256": "6ed2ca48efefc8ef7f74b73c5deb0f43e6ceb59b5ec784f87d6b47cd68224d9a"
+  },
+  {
+    "file": "03-real-native-peer.png",
+    "capturedAt": "2026-10-27T13:12:25.025Z",
+    "sha256": "b0ca3fb60c67924c7bffd8b9fc5010792b3f67d50c9673d9ed2294247c9574c3"
+  },
+  {
+    "file": "04-unavailable.png",
+    "capturedAt": "2026-10-27T13:34:01.000Z",
+    "sha256": "b3f1ca6da34d5b21e16ced79b1af9ed05e8339a24e07b629cc78ce897c41387c"
+  },
+  {
+    "file": "05-webkit-unsupported.png",
+    "capturedAt": "2026-10-27T13:33:52.028Z",
+    "sha256": "257df7f08cf91f3215f71d6b0ffeaad51a14250891c0a539bcf90e231aadeb77"
+  },
+  {
+    "file": "06-hosted-dev-directory.png",
+    "capturedAt": "2026-10-27T14:57:09.702Z",
+    "sha256": "2d93d965d9c6e86a96aaa2f3842d08fa36f6475cb1d82aaabd101f4929afbaf7"
+  },
+  {
+    "file": "07-hosted-dev-desktop.png",
+    "capturedAt": "2026-10-27T14:57:30.201Z",
+    "sha256": "b2a1e5afa2a9e5e55ed90f7c13dcf2bc06e2aac6472d87b06c02d20d2df41068"
+  },
+  {
+    "file": "08-hosted-dev-mobile.png",
+    "capturedAt": "2026-10-27T14:57:31.056Z",
+    "sha256": "9d2ced69908ca0af7996d32b3b42a2c15e91336d4fdb19c769ca2e4ef95ecee7"
+  },
+  {
+    "file": "09-referee-live-on.png",
+    "capturedAt": "2026-10-27T14:57:02.695Z",
+    "sha256": "2b2531514cfe916366c56a17872ea339fe672d753da9fd3c9bd47245ea4c358d"
+  },
+  {
+    "file": "10-referee-live-off.png",
+    "capturedAt": "2026-10-27T14:57:03.356Z",
+    "sha256": "7144e0552ec15a38050d4af99c40d86648c2c4c2570e6dbbf841a5773a7a19e1"
+  },
+  {
+    "file": "11-hosting-options-fixture.png",
+    "capturedAt": "2026-10-27T14:47:24.739Z",
+    "sha256": "9214adbde9bb4a77ff23cfb774d9804d25ecb1502647ccdd0599c8291c57566d"
+  },
+  {
+    "file": "12-regular-dev-room-list.png",
+    "capturedAt": "2026-10-27T15:12:23.187Z",
+    "sha256": "6985278568e48ff037125a89fbc83836c418941d5b6233bd806e55ca6c9c9ea2"
+  },
+  {
+    "file": "13-native-join-no-password.png",
+    "capturedAt": "2026-10-27T15:10:05.605Z",
+    "sha256": "770faf3cf0a0eef9cb3872a2b04bcbc4cddb770198102c979ba91a1ce6356c5e"
+  }
+]

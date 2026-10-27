@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-10-27T14:56:21.430286+00:00",
+  "website": {
+    "environment": "development",
+    "revision": "3132ec798e43855d19917f61a58ff5fd31ac7244",
+    "version": "dev-3132ec798e43",
+    "deployedAt": "2026-10-27T14:55:29.915457+00:00"
+  },
+  "aplRevision": "3339c96d012a9bdb16d0fabb8a6bb088afbbfeda",
+  "workflow": {
+    "id": 40523662740,
+    "url": "https://github.com/KnitidCeladon23/next_haxballasia/actions/runs/40523662740",
+    "revision": "3132ec798e43855d19917f61a58ff5fd31ac7244",
+    "conclusion": "success",
+    "summary": [
+      "2026-10-27T14:53:55.3632006Z   1 flaky",
+      "2026-10-27T14:53:55.3634025Z   4 skipped",
+      "2026-10-27T14:53:55.3634308Z   107 passed (6.7m)"
+    ]
+  },
+  "productionUnchanged": true,
+  "health": {
+    "prodSite": {
+      "status": 200,
+      "robots": null
+    },
+    "devSite": {
+      "status": 200,
+      "robots": "noindex, nofollow"
+    },
+    "devLiveApi": {
+      "status": 200,
+      "robots": null
+    }
+  },
+  "migration": {
+    "column": {
+      "column_name": "liveViewing",
+      "data_type": "boolean",
+      "column_default": "false"
+    },
+    "migrationApplied": true
+  },
+  "databaseBackupBytes": 477749,
+  "fleet": {
+    "checkedAt": "2026-10-27T14:47:23.134308+00:00",
+    "environment": "development",
+    "revision": "3339c96d012a9bdb16d0fabb8a6bb088afbbfeda",
+    "image": "apl-fleet-website-dev:3339c96d012a9bdb16d0fabb8a6bb088afbbfeda",
+    "healthyCatalog": true,
+    "productionFleetUnchanged": true,
+    "stateBackupRetained": true,
+    "rollbackContainerRetained": true,
+    "oldContainer": "a98c6608483e55f497bb32744e143c4ea8068ddf6c05ec2779ecfe5a82237411",
+    "container": "8dcfce3fd0eeb7bc3043515f9f086459687a311b51232ff917b9b945196feb7b"
+  },
+  "host": "User Windows computer; unlisted native test room",
+  "privateAccessOmitted": true
+}

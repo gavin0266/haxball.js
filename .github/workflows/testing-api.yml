@@ -26,5 +26,7 @@ jobs:
           node-version: 24
       - name: Check engine syntax
         run: node --check src/index.js
+      - name: Install locked JavaScript test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Verify participant API contracts without network or tokens
         run: npm run test:testing

@@ -1,0 +1,10 @@
+{
+  "packageSha256": "1fa578c8a0319c350d2f5eb1ae62590c89ad40eb01f687f75aa9a06cdca1bd4b",
+  "bytes": 4569564,
+  "entries": 169,
+  "nativeForkPinned": true,
+  "livePublisher": true,
+  "refereeControls": true,
+  "secretsAndRuntimeDataExcluded": true,
+  "publishedToBucket": false
+}

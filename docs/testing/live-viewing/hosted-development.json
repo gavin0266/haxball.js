@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-27T14:57:31.130Z",
+  "environment": "Hosted development website/API; actual local native room and referee panel",
+  "siteRevision": "3132ec798e43855d19917f61a58ff5fd31ac7244",
+  "nativeListed": false,
+  "websiteListed": true,
+  "engineDrivenParticipants": true,
+  "apiInterception": false,
+  "refereeOffRemovedDiscovery": true,
+  "refereeOnRotatedBroadcast": true,
+  "before": {
+    "time": 0.16666666666666666,
+    "x": -690.7206380085566
+  },
+  "after": {
+    "time": 9.200000000000037,
+    "x": -598.7224018245217
+  },
+  "framesAdvanced": 528,
+  "pauseAndReturnLive": true,
+  "mobileWidth": 390,
+  "pageErrors": []
+}
