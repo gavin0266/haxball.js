@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-native-live-desktop.png",
+    "capturedAt": "2026-10-27T13:33:56.915Z",
+    "sha256": "a540b288b32d0c9e03bd193024c708ac0360a663bc556503ffe02b0eaf7e410f"
+  },
+  {
+    "file": "02-native-live-mobile.png",
+    "capturedAt": "2026-10-27T13:33:57.537Z",
+    "sha256": "6ed2ca48efefc8ef7f74b73c5deb0f43e6ceb59b5ec784f87d6b47cd68224d9a"
+  },
+  {
+    "file": "03-real-native-peer.png",
+    "capturedAt": "2026-10-27T13:12:25.025Z",
+    "sha256": "b0ca3fb60c67924c7bffd8b9fc5010792b3f67d50c9673d9ed2294247c9574c3"
+  },
+  {
+    "file": "04-unavailable.png",
+    "capturedAt": "2026-10-27T13:34:01.000Z",
+    "sha256": "b3f1ca6da34d5b21e16ced79b1af9ed05e8339a24e07b629cc78ce897c41387c"
+  },
+  {
+    "file": "05-webkit-unsupported.png",
+    "capturedAt": "2026-10-27T13:33:52.028Z",
+    "sha256": "257df7f08cf91f3215f71d6b0ffeaad51a14250891c0a539bcf90e231aadeb77"
+  }
+]
