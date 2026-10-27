@@ -8,6 +8,7 @@ const { Crypto } = require('@peculiar/webcrypto');
 const { performance } = require('perf_hooks');
 const crypto = new Crypto();
 const { createTestingApi } = require('./testing');
+const { createLiveReplay } = require('./live-replay');
 class InvalidRoomTokenError extends Error {
   constructor() { super('Invalid room token'); this.name = 'InvalidRoomTokenError'; }
 }
@@ -447,6 +448,16 @@ const onHBLoaded = function (cb) {
           (a.x = c.x - b * g),
           (a.y = c.y - d * g)));
     }
+  }
+  function liveReplayFor(dispatcher) {
+    return createLiveReplay({
+      dispatcher, Writer: A, pack: m.ue, compress: pako.deflateRaw,
+      sanitize: action => {
+        if (action instanceof la || action instanceof Y) return null;
+        if (action instanceof S) { const clean = S.V(action.ma, null, false); clean.B = action.B; return clean; }
+        return action;
+      },
+    });
   }
   class Wa {
     constructor(a, b) {
@@ -3220,6 +3231,7 @@ const onHBLoaded = function (cb) {
         version: 9,
         Gi: ta,
       });
+      D.liveReplay = liveReplayFor(D);
       D.Wc = 2 > B ? 2 : 30 < B ? 30 : B;
       D.lb = N;
       let nb = Promise.resolve();
@@ -3396,6 +3408,7 @@ const onHBLoaded = function (cb) {
             eb = null;
             return h;
           },
+          liveReplay: D.liveReplay.api,
           reorderPlayers: function (h, n) {
             c(da.V(h, n));
           },
@@ -4137,6 +4150,7 @@ const onHBLoaded = function (cb) {
           if (f.eb != this.da) break;
           f.apply(this.Fa);
           null != this.yb && this.yb(f);
+          this.liveReplay?.event(f);
           this.Ra++;
           ++c;
         }
@@ -4144,12 +4158,14 @@ const onHBLoaded = function (cb) {
         this.nd += this.Ra;
         this.Ra = 0;
         this.da++;
+        this.liveReplay?.tick();
       }
       for (; c < d; ) {
         a = b[c];
         if (a.eb != this.da || a.fb != this.Ra) break;
         a.apply(this.Fa);
         null != this.yb && this.yb(a);
+        this.liveReplay?.event(a);
         this.Ra++;
         ++c;
       }
@@ -4173,6 +4189,7 @@ const onHBLoaded = function (cb) {
         if (this.yb != null) {
           this.yb(a);
         }
+        this.liveReplay?.event(a);
       } else {
         // Otherwise, pass it along to the fallback dispatcher
         this.Yd.Di(a);

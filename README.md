@@ -10,6 +10,24 @@
 
 ### 🔖 Table Of Contents
 
+### APL fork: native live viewing
+
+`room.liveReplay.version === 1` exposes a read-only native replay feed. Subscribe
+with `room.liveReplay.subscribe(segment => ..., { segmentFrames: 120 })` and call
+the returned function to unsubscribe. Each segment has absolute `from`/`to`
+frames and independently decodable version 3 `.hbr2` `bytes`. The default is two
+seconds at 60 Hz; allowed sizes are 30–300 frames. This feed continues through
+pauses and archive recording start/stop, without using a spectator player slot.
+
+The observer copies state and applied events before network transport. It omits
+chat, announcements and moderator removal reasons. Authentication, connection
+addresses, passwords and room join links are not part of the native game state.
+Treat player names/avatars as public game content. The consumer is responsible
+for access control and opting private rooms into broadcasting. Queued callbacks
+are cancelled on unsubscribe, callback failures are isolated, and an oversized
+segment stops the subscription rather than interrupting the game. Resubscribe to
+recover using a fresh checkpoint. Normal archive replays remain unchanged.
+
 ### APL fork: private-room engine testing
 
 This fork retains the `create-player` engine snapshot and adds an opt-in testing
